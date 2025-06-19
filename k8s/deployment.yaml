@@ -21,4 +21,20 @@ spec:
       - image: acehanks/go-simple-app:v1
         name: go-simple-app
         resources: {}
+        livenessProbe:
+          httpGet:
+            path: /
+            port: 9002
+          initialDelaySeconds: 15
+          periodSeconds: 10
+          timeoutSeconds: 5
+          failureThreshold: 3
+        readinessProbe:
+          httpGet:
+            path: /
+            port: 9002
+          initialDelaySeconds: 10
+          periodSeconds: 5
+          timeoutSeconds: 3
+          failureThreshold: 3
 status: {}
