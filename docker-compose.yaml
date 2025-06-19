@@ -1,8 +1,7 @@
 
 services:
   app:
+    image: acehanks/go-simple-app:v1
     build: .
     ports:
       - "9002:9002"
-  
-

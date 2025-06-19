@@ -1,0 +1,26 @@
+apiVersion: v1
+kind: Service
+metadata:
+  creationTimestamp: "2025-06-18T23:46:26Z"
+  labels:
+    app: go-simple-app
+  name: go-simple-app
+  namespace: default
+  resourceVersion: "872"
+  uid: d7aeed86-a34f-42f2-b52a-145e612ae6b7
+spec:
+  internalTrafficPolicy: Cluster
+  ipFamilies:
+  - IPv4
+  ipFamilyPolicy: SingleStack
+  ports:
+  - name: simple-app-port
+    port: 80
+    protocol: TCP
+    targetPort: 9002
+  selector:
+    app: go-simple-app
+  sessionAffinity: None
+  type: ClusterIP
+status:
+  loadBalancer: {}
