@@ -1,0 +1,4 @@
+namespace: dev
+host: dev.192.168.105.2.sslip.io
+image:
+  tag: v2
