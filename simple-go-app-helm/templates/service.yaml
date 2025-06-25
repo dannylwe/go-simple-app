@@ -8,9 +8,9 @@ metadata:
 spec:
   ports:
   - name: simple-app-port
-    port: 80
+    port: {{ .Values.servicePort }}
     protocol: TCP
-    targetPort: 9002
+    targetPort: {{ .Values.appPort }}
   selector:
     app: {{ .Values.appName }}
   sessionAffinity: None

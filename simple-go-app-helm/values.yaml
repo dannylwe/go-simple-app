@@ -3,6 +3,7 @@ host: go-simple.192.168.105.2.sslip.io #ip is got from minikube ip
 ingressName: go-simple-ingress
 namespace: default
 appPort: 9002
+servicePort: 80
 image:
   name: acehanks/go-simple-app
   tag: v1
