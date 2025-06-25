@@ -25,7 +25,7 @@ spec:
         livenessProbe:
           httpGet:
             path: /
-            port: {{ values.appPort }}
+            port: {{ .Values.appPort }}
           initialDelaySeconds: 15
           periodSeconds: 10
           timeoutSeconds: 5
@@ -33,7 +33,7 @@ spec:
         readinessProbe:
           httpGet:
             path: /
-            port: {{ values.appPort }}
+            port: {{ .Values.appPort }}
           initialDelaySeconds: 10
           periodSeconds: 5
           timeoutSeconds: 3
