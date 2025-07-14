@@ -33,6 +33,8 @@ helm upgrade go-release simple-go-app-helm --values=simple-go-app-helm/values.ya
 - kubectl create namespace dev
 - helm install go-release-dev simple-go-app-helm --values=simple-go-app-helm/values.yaml -f simple-go-app-helm/values.dev.yaml
 
+## How to rollback on helm
+- helm rollback go-simple-release 3
 
 ### NOTE
 Whatever is put in values.*.yaml will override the contents of values.yaml
