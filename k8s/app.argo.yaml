@@ -1,0 +1,39 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: go-simple-app-helm
+  namespace: argocd
+  # finalizers:
+  # - resources-finalizer.argocd.argoproj.io
+spec:
+  project: default
+  source:
+    repoURL: https://github.com/dannylwe/go-simple-app
+    targetRevision: argocd  # or your branch/tag or HEAD
+    path: simple-go-app-helm  # Path to Helm chart directory
+    helm:
+      # Release values (override values.yaml)
+      # values: |
+      #   service:
+      #     type: ClusterIP
+      #   replicaCount: 2
+        
+      # Alternative: Use external values file
+      valueFiles:
+        - values.dev.yaml
+      
+      # Parameters (override specific values)
+      parameters:
+        - name: image.tag
+          value: v1
+        - name: replicas
+          value: "2"
+  destination:
+    server: https://kubernetes.default.svc
+    # namespace: default
+  syncPolicy:
+    # automated:
+    #   prune: false
+    #   selfHeal: false
+    syncOptions:
+    - CreateNamespace=true

@@ -4,13 +4,15 @@ metadata:
   name: {{ .Values.ingressName }}
   namespace: {{ .Values.namespace }}
   annotations:
-    nginx.ingress.kubernetes.io/rewrite-target: /
+    nginx.ingress.kubernetes.io/ssl-redirect: "false"
+    nginx.ingress.kubernetes.io/use-regex: "true"
+    nginx.ingress.kubernetes.io/rewrite-target: /$2
 spec:
   rules:
     - host: {{ .Values.host }}
       http:
         paths:
-          - path: /
+          - path: /app(/|$)(.*)
             pathType: Prefix
             backend:
               service:
