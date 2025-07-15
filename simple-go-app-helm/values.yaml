@@ -7,4 +7,4 @@ servicePort: 80
 replicas: 1
 image:
   name: acehanks/go-simple-app
-  tag: v1
+  tag: v3

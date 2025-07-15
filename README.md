@@ -9,6 +9,10 @@
 ### run tests
 - go run tests -cover
 
+### build, tag and push docker container
+- docker build -t acehanks/go-simple-app:v3 .
+- docker push acehanks/go-simple-app:v3
+
 ### run k8s
 - alias k=kubectl
 - minikube ip (put this in ingress.yaml)
