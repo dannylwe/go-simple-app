@@ -3,7 +3,7 @@ package main
 import (
 	"sync"
 
-	flagsmith "github.com/Flagsmith/flagsmith-go-client"
+	flagsmith "github.com/Flagsmith/flagsmith-go-client/v3"
 )
 
 var (
@@ -13,7 +13,7 @@ var (
 
 func NewFlagClient() *flagsmith.Client {
 	once.Do(func() {
-		client = flagsmith.DefaultClient("ser.RKeb3BPYV2YERESrHxK92L")
+		client = flagsmith.NewClient("ser.RKeb3BPYV2YERESrHxK92L")
 	})
 	return client
 }

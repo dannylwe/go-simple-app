@@ -26,15 +26,22 @@ func MessageHandler(w http.ResponseWriter, r *http.Request) {
 }
 
 func StatusCheckHandler(w http.ResponseWriter, r *http.Request) {
+	ctx := r.Context()
 	client = NewFlagClient()
-	isEnabled, err := client.FeatureEnabled("status_check")
+	flags, err := client.GetEnvironmentFlags(ctx)
+	if err != nil {
+		http.Error(w, "failed to get feature flag", http.StatusPreconditionFailed)
+		return
+	}
+
+	statusCheckEnabled, err := flags.IsFeatureEnabled("status_check")
 	if err != nil {
 		http.Error(w, "failed to get feature flag", http.StatusPreconditionFailed)
 		return
 	}
 
 	w.Header().Set("Content-Type", "text/plain")
-	if isEnabled {
+	if statusCheckEnabled {
 		fmt.Fprintf(w, CheckStatusV2())
 		return
 	}
