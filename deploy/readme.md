@@ -1,6 +1,11 @@
-## create kindl cluster
+## create kind cluster
 ```bash
 kind create cluster --name dev-observability --config monitoring/kind-cluster.yaml
+```
+
+## delete cluster
+```bash
+kind delete cluster --name dev-observability
 ```
 
 ## install argocd
