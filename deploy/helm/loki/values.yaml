@@ -1,0 +1,13 @@
+loki:
+  common:
+    replication_factor: 1
+  persistence:
+    enabled: true
+    size: 1Gi
+    accessModes:
+      - ReadWriteOnce
+    storageClassName: local-path
+
+service:
+  type: NodePort
+  nodePort: 31000

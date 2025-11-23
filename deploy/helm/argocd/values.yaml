@@ -1,0 +1,28 @@
+server:
+  service:
+    type: NodePort
+    nodePortHttp: 30080
+    nodePortHttps: 30443
+
+configs:
+  params:
+    server.insecure: true
+
+controller:
+  metrics:
+    enabled: true
+
+serverMetrics:
+  enabled: true
+
+repoServer:
+  metrics:
+    enabled: true
+
+applicationSet:
+  metrics:
+    enabled: true
+
+redis:
+  metrics:
+    enabled: true
