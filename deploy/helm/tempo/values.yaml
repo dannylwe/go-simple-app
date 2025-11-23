@@ -1,0 +1,115 @@
+## Grafana Tempo - Development Environment
+## Minimal single-node setup for local testing on Windows
+
+global:
+  clusterDomain: cluster.local
+
+## Gateway Configuration
+gateway:
+  enabled: true
+  replicas: 1
+  service:
+    type: ClusterIP
+
+## MinIO Configuration for S3 Backend Storage
+minio:
+  enabled: true
+  mode: standalone
+  rootUser: grafana-tempo
+  rootPassword: changeme123!
+  buckets:
+    - name: tempo-traces
+      policy: none
+      purge: false
+  persistence:
+    enabled: true
+    size: 1Gi
+    storageClassName: local-path
+
+## Tempo Storage Configuration
+storage:
+  trace:
+    backend: s3
+    s3:
+      bucket: tempo-traces
+      endpoint: tempo-minio:9000
+      access_key: grafana-tempo
+      secret_key: changeme123!
+      insecure: true
+    pool:
+      max_workers: 10
+      queue_depth: 1000
+    wal:
+      path: /var/tempo/wal
+
+## Metrics Generator (disabled for dev)
+metricsGenerator:
+  enabled: false
+
+## Distributor Configuration
+distributor:
+  replicas: 1
+  config:
+    log_received_spans:
+      enabled: true
+
+## Ingester Configuration
+ingester:
+  replicas: 1
+  lifecycler:
+    ring:
+      replication_factor: 1
+
+## Querier Configuration
+querier:
+  replicas: 1
+
+## Query Frontend Configuration
+queryFrontend:
+  replicas: 1
+
+## Compactor Configuration
+compactor:
+  replicas: 1
+
+## Trace Protocol Receivers
+traces:
+  otlp:
+    grpc:
+      enabled: true
+    http:
+      enabled: true
+  zipkin:
+    enabled: false
+  jaeger:
+    thriftCompact:
+      enabled: false
+    thriftHttp:
+      enabled: false
+  opencensus:
+    enabled: false
+
+## Resource Limits (minimal for dev)
+resources:
+  limits:
+    cpu: 250m
+    memory: 256Mi
+  requests:
+    cpu: 50m
+    memory: 64Mi
+
+## Memcached (disabled)
+memcached:
+  enabled: false
+
+## Meta Monitoring
+metaMonitoring:
+  serviceMonitor:
+    enabled: false
+
+## Pod Disruption Budget
+podDisruptionBudget:
+  enabled: false
+
+## Logging Level
+loglevel: debug
