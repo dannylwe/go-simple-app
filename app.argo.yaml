@@ -9,7 +9,7 @@ spec:
   project: default
   source:
     repoURL: https://github.com/dannylwe/go-simple-app
-    targetRevision: HEAD  # or your branch/tag or HEAD
+    targetRevision: main  # or your branch/tag or HEAD
     path: simple-go-app-helm  # Path to Helm chart directory
     helm:
       # Release values (override values.yaml)

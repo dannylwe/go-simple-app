@@ -7,7 +7,7 @@ spec:
   project: default
   source:
     repoURL: 'https://github.com/dannylwe/go-simple-app'
-    targetRevision: HEAD
+    targetRevision: main
     path: deploy/helm/argocd/applications/monitoring
     helm:
       valueFiles:
