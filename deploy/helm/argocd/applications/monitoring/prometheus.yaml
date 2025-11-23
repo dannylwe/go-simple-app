@@ -6,12 +6,13 @@ metadata:
 spec:
   project: default
   source:
-    repoURL: 'https://github.com/dannylwe/go-simple-app'
-    targetRevision: HEAD
-    path: deploy/helm/prometheus
+    repoURL: 'https://prometheus-community.github.io/helm-charts'
+    targetRevision: 79.7.1
+    chart: kube-prometheus-stack
     helm:
+      releaseName: prometheus
       valueFiles:
-        - values.yaml
+        - 'https://raw.githubusercontent.com/dannylwe/go-simple-app/HEAD/deploy/helm/prometheus/values.yaml'
   destination:
     server: https://kubernetes.default.svc
     namespace: monitoring
