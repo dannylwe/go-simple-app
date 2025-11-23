@@ -6,12 +6,13 @@ metadata:
 spec:
   project: default
   source:
-    repoURL: 'https://github.com/dannylwe/go-simple-app'
-    targetRevision: HEAD
-    path: deploy/helm/promtail
+    repoURL: 'https://grafana.github.io/helm-charts'
+    targetRevision: 6.17.1
+    chart: promtail
     helm:
+      releaseName: promtail
       valueFiles:
-        - values.yaml
+        - 'https://raw.githubusercontent.com/dannylwe/go-simple-app/HEAD/deploy/helm/promtail/values.yaml'
   destination:
     server: https://kubernetes.default.svc
     namespace: monitoring

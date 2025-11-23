@@ -6,12 +6,13 @@ metadata:
 spec:
   project: default
   source:
-    repoURL: 'https://github.com/dannylwe/go-simple-app'
-    targetRevision: HEAD
-    path: deploy/helm/grafana
+    repoURL: 'https://grafana.github.io/helm-charts'
+    targetRevision: 10.2.0
+    chart: grafana
     helm:
+      releaseName: grafana
       valueFiles:
-        - values.yaml
+        - 'https://raw.githubusercontent.com/dannylwe/go-simple-app/HEAD/deploy/helm/grafana/values.yaml'
   destination:
     server: https://kubernetes.default.svc
     namespace: monitoring

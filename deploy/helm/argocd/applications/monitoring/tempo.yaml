@@ -6,12 +6,13 @@ metadata:
 spec:
   project: default
   source:
-    repoURL: 'https://github.com/dannylwe/go-simple-app'
-    targetRevision: HEAD
-    path: deploy/helm/tempo
+    repoURL: 'https://grafana.github.io/helm-charts'
+    targetRevision: 1.56.2
+    chart: tempo-distributed
     helm:
+      releaseName: tempo
       valueFiles:
-        - values.yaml
+        - 'https://raw.githubusercontent.com/dannylwe/go-simple-app/HEAD/deploy/helm/tempo/values.yaml'
   destination:
     server: https://kubernetes.default.svc
     namespace: monitoring
