@@ -7,7 +7,7 @@ spec:
   project: default
   source:
     repoURL: 'https://github.com/dannylwe/go-simple-app'
-    targetRevision: main
+    targetRevision: HEAD
     path: deploy/helm/prometheus
     helm:
       valueFiles:

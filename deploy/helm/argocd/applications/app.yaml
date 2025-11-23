@@ -7,7 +7,7 @@ spec:
   project: default
   source:
     repoURL: 'https://github.com/dannylwe/go-simple-app'
-    targetRevision: main
+    targetRevision: HEAD
     path: simple-go-app-helm
   destination:
     server: https://kubernetes.default.svc
