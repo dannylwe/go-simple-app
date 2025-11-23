@@ -8,7 +8,7 @@ import (
 
 func TestMessage(t *testing.T) {
 	expected := "this is a test"
-	got := message()
+	got := getMessage()
 
 	if got != expected {
 		t.Errorf("was expecting %s got %s", expected, got)
@@ -22,7 +22,7 @@ func TestHelloWorldHandler(t *testing.T) {
 	}
 
 	rr := httptest.NewRecorder()
-	handler := http.HandlerFunc(messageHandler)
+	handler := http.HandlerFunc(MessageHandler)
 
 	handler.ServeHTTP(rr, req)
 
