@@ -1,5 +1,6 @@
 appName: go-simple-app
-host: go-simple.192.168.105.2.sslip.io #ip is got from minikube ip
+# host: go-simple.192.168.105.2.sslip.io #ip is got from minikube ip
+host: go-simple.102.218.91.196.sslip.io #ip is got from minikube ip
 ingressName: go-simple-ingress
 namespace: default
 appPort: 9002
