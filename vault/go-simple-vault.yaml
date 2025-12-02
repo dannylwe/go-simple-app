@@ -1,0 +1,67 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  namespace: vault
+  creationTimestamp: null
+  labels:
+    app: simple-go-vault
+  name: simple-go-vault
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: simple-go-vault
+  strategy:
+    type: RollingUpdate
+  template:
+    metadata:
+      annotations:
+        vault.hashicorp.com/agent-inject: "true"
+        vault.hashicorp.com/agent-inject-status: "update"
+        vault.hashicorp.com/agent-inject-secret-login: "secret/login"
+        vault.hashicorp.com/agent-inject-template-login: |
+          {{- with secret "secret/login" -}}
+          pattoken={{ .Data.data.pattoken }}
+          {{- end }}
+        vault.hashicorp.com/agent-inject-secret-my-first-secret: "secret/my-first-secret"
+        vault.hashicorp.com/agent-inject-template-my-first-secret: |
+          {{- with secret "secret/my-first-secret" -}}
+          username={{ .Data.data.username }}
+          password={{ .Data.data.password }}
+          {{- end }}
+        vault.hashicorp.com/role: "vault-role"
+      labels:
+        app: simple-go-vault
+    spec:
+      serviceAccountName: vault-serviceaccount
+      containers:
+      - image: acehanks/go-simple-app:v1
+        name: go-simple-app
+        resources: {}
+        livenessProbe:
+          httpGet:
+            path: /
+            port: 9002
+          initialDelaySeconds: 15
+          periodSeconds: 10
+          timeoutSeconds: 5
+          failureThreshold: 3
+        readinessProbe:
+          httpGet:
+            path: /
+            port: 9002
+          initialDelaySeconds: 10
+          periodSeconds: 5
+          timeoutSeconds: 3
+          failureThreshold: 3
+status: {}
+---
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: vault-serviceaccount
+  namespace: vault
+  labels:
+    app: read-vault-secret
+
