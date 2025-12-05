@@ -1,0 +1,60 @@
+server:
+  image:
+    repository: hashicorp/vault
+    tag: "1.14.0" # pick a stable vault version; adjust if newer desired
+  ha:
+    enabled: true
+    replicas: 1
+  # Enable integrated raft storage (recommended for production-like)
+  dataStorage:
+    enabled: true
+    volumeSize: 500Mi
+    storageClassName: ""
+    # storageClassName: "standard" # leave empty to use default minikube SC
+    raft:
+      enabled: true
+
+  # TLS configuration: use an existing k8s TLS secret
+  tls:
+    enabled: false
+    # existingSecret: "vault-server-tls"
+    # The server will use /etc/vault/tls/tls.crt and tls.key if you used secret tls type
+
+  # enable the UI
+  ui:
+    enabled: true
+
+  # enable the injector (mutating webhook and vault-agent)
+  injector:
+    enabled: true
+
+  # service config
+  service:
+    type: ClusterIP
+    port: 8200
+    annotations: {}
+
+  # resources for each vault server pod (tweak for minikube limits)
+  resources:
+    requests:
+      cpu: 100m
+      memory: 256Mi
+    limits:
+      cpu: 500m
+      memory: 512Mi
+
+# Enable server-side RBAC and service account (default)
+rbac:
+  create: true
+
+# TLS on the client side (for UI/CLI access)
+serverConfig: |
+  listener "tcp" {
+    address     = "0.0.0.0:8200"
+    tls_cert_file = "/vault/userconfig/vault.crt"
+    tls_key_file  = "/vault/userconfig/vault.key"
+  }
+
+# Use PostStart hook to ensure proper permissions, etc.
+affinity: {}
+tolerations: []
